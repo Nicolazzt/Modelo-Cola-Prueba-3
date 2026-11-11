@@ -26,8 +26,8 @@ ColaEnvios::ColaEnvios()
 ColaEnvios::ColaEnvios(const ColaEnvios& otra)
     : frente_(nullptr), final_(nullptr), cantidad(0)
 {
-    // TODO: completar.
-    (void)otra;
+   
+        
 }
 
 ColaEnvios& ColaEnvios::operator=(const ColaEnvios& otra)
@@ -54,20 +54,37 @@ ColaEnvios& ColaEnvios::operator=(ColaEnvios&& otra) noexcept
 bool ColaEnvios::vacia() const
 {
     // TODO: completar.
+    if(cantidad == 0)
+    {
+        return true;
+    }else
+    {
     return false;
+    }
 }
 
 std::size_t ColaEnvios::tamanio() const
 {
-    // TODO: completar.
-    return 0;
+    return cantidad;
 }
 
 bool ColaEnvios::encolar(const TextMessage& mensaje)
 {
-    // TODO: completar.
-    (void)mensaje;
-    return false;
+    //*nuevo = new Nodo(mensaje);
+    
+    std::shared_ptr<Nodo> nuevo = std::make_shared<Nodo>(mensaje);
+    if (final_ == nullptr)
+    {
+        final_ = nuevo;
+        frente_ = nuevo;
+
+    }else
+    {
+        final_->siguiente = nuevo;
+        final_ = nuevo;
+
+    }
+
 }
 
 bool ColaEnvios::desencolar()
