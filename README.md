@@ -16,7 +16,7 @@ make clean
 | :--- | :--- | :--- |
 | Santiago Zerpa | V-32451779 | ChatCola: encolarMensaje, procesarSiguiente, procesarTodos |
 | Santiago Ruiz | V-32709123 | ChatCola: cancelarEnvio, subirPrioridad, bajarPrioridad |
-| (completar) | | ChatCola: cantidadPendientes, cantidadEnviados, buscarEnviado |
+| Nicolas Lopez | V-30024260 | ColaEnvios: encolar, desencolar, vaciar, tamanio, guardarCSV, cargarCSV, limpiar y frente |
 | (completar) | | ColaEnvios |
 | (completar) | | ColaEnvios |
 | (completar) | | ColaEnvios |
