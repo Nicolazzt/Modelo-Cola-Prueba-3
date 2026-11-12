@@ -6,7 +6,8 @@
 // PRACTICA EVALUADA 03 - MODELO C (COLA ENLAZADA)
 // Integrantes:
 //   1. Santiago Zerpa - C.I. V-32451779 - Rol: integracion de chatcola
-//   2. Nombre y Apellido - C.I. V-XXXXXXXX - Rol:
+//   2. Santiago Ruiz - C.I. V-32709123 - Rol: integracion de chatcola
+//      (cancelarEnvio, subirPrioridad, bajarPrioridad)
 //   3. Nombre y Apellido - C.I. V-XXXXXXXX - Rol:
 // ====================================================================
 // Completen la integracion de la cola con el chat.
@@ -52,25 +53,26 @@ std::size_t ChatCola::procesarTodos()
     return procesados;
 }
 
+// Autor: Santiago Ruiz (C.I. V-32709123)
 bool ChatCola::cancelarEnvio(int id)
 {
-    // TODO: completar.
-    (void)id;
-    return false;
+    // solo afecta a mensajes que siguen pendientes en la cola;
+    // si el id ya fue enviado (o no existe) la cola retorna false
+    return pendientes.cancelar(id);
 }
 
+// Autor: Santiago Ruiz (C.I. V-32709123)
 bool ChatCola::subirPrioridad(int id)
 {
-    // TODO: completar.
-    (void)id;
-    return false;
+    // mueve el mensaje pendiente al frente, sin cambiar su estado
+    return pendientes.moverAlFrente(id);
 }
 
+// Autor: Santiago Ruiz (C.I. V-32709123)
 bool ChatCola::bajarPrioridad(int id)
 {
-    // TODO: completar.
-    (void)id;
-    return false;
+    // mueve el mensaje pendiente al final, sin cambiar su estado
+    return pendientes.moverAlFinal(id);
 }
 
 const TextMessage* ChatCola::siguientePendiente() const
