@@ -5,10 +5,9 @@
 // ====================================================================
 // PRACTICA EVALUADA 03 - MODELO C (COLA ENLAZADA)
 // Integrantes:
-//   1. Nombre y Apellido - C.I. V-XXXXXXXX - Rol:
+//   1. Santiago Zerpa - C.I. V-32451779 - Rol: integracion de chatcola
 //   2. Nombre y Apellido - C.I. V-XXXXXXXX - Rol:
 //   3. Nombre y Apellido - C.I. V-XXXXXXXX - Rol:
-//   4. Nombre y Apellido - C.I. V-XXXXXXXX - Rol:
 // ====================================================================
 // Completen la integracion de la cola con el chat.
 // ====================================================================
@@ -20,21 +19,37 @@ ChatCola::ChatCola(int id, std::string nombre, std::vector<std::string> particip
 
 bool ChatCola::encolarMensaje(TextMessage mensaje)
 {
-    // TODO: completar.
-    (void)mensaje;
-    return false;
+    // el remitente debe participar en el chat
+    if (!isParticipant(mensaje.getSenderId())) return false;
+    // solo se encolan mensajes Pending
+    if (mensaje.getStatus() != MessageStatus::Pending) return false;
+    // el id no puede estar ni pendiente ni enviado
+    if (pendientes.buscarPorId(mensaje.getId()) != nullptr) return false;
+    if (buscarEnviado(mensaje.getId()) != nullptr) return false;
+    return pendientes.encolar(mensaje);
 }
 
 bool ChatCola::procesarSiguiente()
 {
-    // TODO: completar.
-    return false;
+    TextMessage* frente = pendientes.frente();
+    if (frente == nullptr) return false;
+
+    // copio el mensaje, lo marco Sent y lo guardo en enviados
+    TextMessage copia = *frente;
+    copia.markSent(getId());
+    enviados.push_back(copia);
+
+    pendientes.desencolar();
+    return true;
 }
 
 std::size_t ChatCola::procesarTodos()
 {
-    // TODO: completar.
-    return 0;
+    std::size_t procesados = 0;
+    while (procesarSiguiente()) {
+        procesados++;
+    }
+    return procesados;
 }
 
 bool ChatCola::cancelarEnvio(int id)
